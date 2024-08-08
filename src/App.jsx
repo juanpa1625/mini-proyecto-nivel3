@@ -1,29 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from './components/Navbar';
 import CardList from './components/CardList';
+import { Modal } from './components/Modal'; 
 import staysData from './data/stays.json';
 
 const App = () => {
   const [stays, setStays] = useState([]);
-  console.log(stays)
+  const [filteredStays, setFilteredStays] = useState([]); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [searchValues, setSearchValues] = useState({ location: '', guests: '' });
 
   useEffect(() => {
     setStays(staysData);
+    setFilteredStays(staysData); 
   }, []);
+
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <div className="App">
-      <Navbar />
-      <section className='hero'> 
-        <h2>stays in finland </h2>
-        <span>12+stays</span>
+      <Navbar toggleModal={toggleModal} />
+      <section className="hero">
+        <h2>Stays in Finland</h2>
+        <span>12+ stays</span>
       </section>
-      <CardList stays={stays} />
+      <CardList stays={filteredStays} />
       <footer>
-        <h4> created by juanpa</h4>
+        <h4>Created by Juanpa</h4>
       </footer>
-    </div>
 
+      {isModalOpen && ( // Condicional para mostrar el modal
+        <Modal 
+          toggleModal={toggleModal} 
+          stays={stays} 
+          setFilteredStays={setFilteredStays} 
+          searchValues={searchValues}
+          setSearchValues={setSearchValues}
+        />
+      )}
+    </div>
   );
 };
 
