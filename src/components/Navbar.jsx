@@ -8,24 +8,12 @@ const availableLocations = [
   'Vaasa, Finland'
 ];
 
-const Navbar = ({ toggleModal }) => {
+const Navbar = ({ onSearch }) => {
   const [location, setLocation] = useState('');
   const [guests, setGuests] = useState(1);
 
-  const handleLocationClick = () => {
-    toggleModal();
-  };
-
-  const handleGuestsClick = () => {
-    toggleModal();
-  };
-
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-
-  const handleGuestsChange = (event) => {
-    setGuests(event.target.value);
+  const handleSearch = () => {
+    onSearch(location, guests);
   };
 
   return (
@@ -36,8 +24,7 @@ const Navbar = ({ toggleModal }) => {
         <input
           type="text"
           value={location}
-          onClick={handleLocationClick}
-          onChange={handleLocationChange}
+          onChange={(e) => setLocation(e.target.value)}
           placeholder="Select location"
           list="locations-list"
           className="navbar__input"
@@ -52,13 +39,12 @@ const Navbar = ({ toggleModal }) => {
           type="number"
           min="1"
           value={guests}
-          onClick={handleGuestsClick}
-          onChange={handleGuestsChange}
+          onChange={(e) => setGuests(e.target.value)}
           placeholder="Add guests"
           className="navbar__input"
         />
 
-        <button onClick={toggleModal} className="navbar__button">
+        <button onClick={handleSearch} className="navbar__button">
           <img src="buscar.png" alt="buscar" className="fas fa-search" />
         </button>
       </div>
