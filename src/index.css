@@ -39,11 +39,13 @@ body {
 }
 
 .superhost {
-  background-color: #333;
-  color: #fff;
+  background-color: #e7dede;
+  color: #1b1919;
   font-weight: bold;
   padding: 2px 5px;
-  border-radius: 5px;
+  border-radius: 5px ;
+  border-color: solid  #1b1919;
+ 
 }
 
 .rating {
